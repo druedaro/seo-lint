@@ -15,7 +15,6 @@ export const ogTagsComplete: Rule = {
   check(doc: Document, ctx: RuleContext): Finding[] {
     const findings: Finding[] = [];
 
-    // Skip 404 error pages and pages marked with noindex
     const is404Page = ctx.filePath === "404.html" || /(^|\/)404(\/index)?\.html$/i.test(ctx.filePath);
     if (is404Page) {
       return findings;

@@ -83,9 +83,6 @@ export function scanAndLint(options: ScanOptions): LintResult {
     throw new Error(`Target directory does not exist: "${distDir}" (resolved: ${absDist})`);
   }
 
-  // Auto-detect framework adapter subdirectories:
-  // e.g. Astro with @astrojs/vercel, Cloudflare, Node places static output in dist/client/
-  // Nuxt 3 places static output in .output/public/
   if (!fs.existsSync(path.join(absDist, "index.html"))) {
     const clientSubdir = path.join(absDist, "client");
     const publicSubdir = path.join(absDist, "public");

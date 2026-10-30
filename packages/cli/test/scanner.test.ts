@@ -62,10 +62,8 @@ describe("cli scanner", () => {
     fs.mkdirSync(collections, { recursive: true });
     fs.mkdirSync(server, { recursive: true });
 
-    // Server folder contains JS, no HTML
     fs.writeFileSync(path.join(server, "entry.mjs"), "export const handler = () => {};");
 
-    // Client folder contains static HTML with root-relative links
     fs.writeFileSync(
       path.join(client, "index.html"),
       "<!DOCTYPE html><html lang='en'><head><title>Home Page Title Here</title><meta name='description' content='Valid length meta description for the home page.'><link rel='canonical' href='https://example.com/'><meta property='og:title' content='Home'><meta property='og:description' content='Valid length meta description for the home page.'><meta property='og:image' content='https://example.com/og.jpg'></head><body><h1>Heading</h1><a href='/collections'>Collections</a><a href='/'>Home</a></body></html>"
@@ -76,11 +74,9 @@ describe("cli scanner", () => {
       "<!DOCTYPE html><html lang='en'><head><title>Collections Page Title</title><meta name='description' content='Valid length meta description for the collections.'><link rel='canonical' href='https://example.com/collections'><meta property='og:title' content='Collections'><meta property='og:description' content='Valid length meta description for the collections.'><meta property='og:image' content='https://example.com/og.jpg'></head><body><h1>Heading</h1><a href='/'>Home</a></body></html>"
     );
 
-    // Pass `dist` directly (which has no index.html at root, but client/ does)
     const result = scanAndLint({ distDir: dist });
 
     expect(result.filesAnalysed).toBe(2);
-    // Should NOT have false positives for broken internal links / or /collections
     const brokenLinkFindings = result.findings.filter((f) => f.ruleId === "no-broken-internal-links");
     expect(brokenLinkFindings).toHaveLength(0);
     expect(result.hasErrors).toBe(false);

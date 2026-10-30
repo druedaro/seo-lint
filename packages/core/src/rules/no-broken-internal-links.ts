@@ -36,10 +36,6 @@ export const noBrokenInternalLinks: Rule = {
         path.isAbsolute(cleanHref) ? cleanHref.slice(1) : path.join(baseDir, cleanHref)
       );
 
-      // Candidate resolutions for static site generators:
-      // 1. Literal file: e.g. "about.html" or "assets/cv.pdf"
-      // 2. Directory index: e.g. "/" -> "index.html", "/en/" -> "en/index.html"
-      // 3. Clean URL without extension: e.g. "/about" -> "about.html"
       const candidates = [
         normalizedPath,
         path.join(normalizedPath, "index.html"),

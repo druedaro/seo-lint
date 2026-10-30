@@ -31,7 +31,6 @@ export function formatGithubReport(result: LintResult): string {
     );
   }
 
-  // Shared component tip for recurrent broken links
   const brokenLinksByHref = new Map<string, Set<string>>();
   for (const f of result.findings) {
     if (f.ruleId === "no-broken-internal-links") {

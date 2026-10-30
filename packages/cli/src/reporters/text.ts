@@ -55,7 +55,6 @@ export function formatTextReport(result: LintResult): string {
 
   output.push(summaryText);
 
-  // Shared component tip for recurrent broken links (common in SSG layouts like Footer or Nav)
   const brokenLinksByHref = new Map<string, Set<string>>();
   for (const f of result.findings) {
     if (f.ruleId === "no-broken-internal-links") {
